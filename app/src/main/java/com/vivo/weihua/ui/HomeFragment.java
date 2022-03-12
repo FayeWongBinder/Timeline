@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
 
         mContext = getActivity();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            doService();
+            doService();
         }
 
     }
