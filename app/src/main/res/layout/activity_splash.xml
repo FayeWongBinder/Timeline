@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/icon_me_bg"
+    android:orientation="vertical"
    >
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@mipmap/start_app"
+      />
+  <TextView
+      android:layout_alignParentBottom="true"
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:text="自动记录生活点滴"
+      android:gravity="center"
+      android:textColor="@color/black"
+      />
+</RelativeLayout>

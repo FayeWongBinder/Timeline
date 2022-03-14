@@ -6,20 +6,47 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="分享此刻的心情吧"
-            android:textSize="21sp"
-            android:layout_marginLeft="12dp"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="搜索"
-            android:textSize="21sp"
-            android:layout_marginLeft="12dp"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已经记录128天"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="200dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/add_icon"
+                />
+        </LinearLayout>
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="54dp"
+           >
+           <ImageView
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@mipmap/add_mini_icon"
+               android:layout_marginRight="20dp"
+               />
+           <ImageView
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="54dp"
+               android:src="@mipmap/search_home_icon"
+               />
+       </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView

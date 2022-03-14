@@ -69,4 +69,18 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         />
+    <LinearLayout
+        android:id="@+id/ll_test"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFB6C1"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test test test"
+
+            />
+    </LinearLayout>
 </LinearLayout>
