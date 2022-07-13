@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:onClick="toBack"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_back"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:text="完成"
+            android:background="@drawable/shape_rectangle_with_radius"
+            />
+    </RelativeLayout>
+    <me.james.biuedittext.BiuEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="biu,biu,发射1号"
+        android:textColor="@color/tab_tv_normal"
+        app:biu_duration="800"
+        app:biu_text_color="@color/tab_tv_normal"
+        app:biu_text_scale="1.5"
+        app:biu_type="flydown"
+        app:biu_text_start_size="16sp" />
+
+</LinearLayout>

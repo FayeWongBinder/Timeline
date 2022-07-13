@@ -28,12 +28,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Weihua">
         <!--高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="75323edd25d02f6fdde7de3bb8cf3b6f"></meta-data>
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,9 +51,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.PrivacyActivity"/>
-        <activity android:name=".ui.AboutMeActivity"/>
+<!--        <activity android:name=".ui.AboutMeActivity" />-->
+        <activity android:name=".ui.PrivacyActivity"
+            />
+<!--        <activity android:name=".ui.AboutMeActivity"/>-->
+        <activity android:name=".ui.AddActivity"/>
         <service android:name="com.amap.api.location.APSService"></service>
         <service android:name="com.vivo.weihua.db.AutoServer"
             android:permission="android.permission.BIND_JOB_SERVICE"

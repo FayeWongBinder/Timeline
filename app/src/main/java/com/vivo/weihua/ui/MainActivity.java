@@ -1,6 +1,8 @@
 package com.vivo.weihua.ui;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.vivo.weihua.R;
 import com.vivo.weihua.fragment.CountFragment;
+import com.vivo.weihua.fragment.HomeFragment;
 import com.vivo.weihua.fragment.MeFragment;
 import com.vivo.weihua.util.NoScrollViewPager;
 
@@ -37,11 +40,11 @@ public class MainActivity extends FragmentActivity {
 
         viewPager = findViewById(R.id.vp_page);
         tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setTabRippleColor(ColorStateList.valueOf(Color.TRANSPARENT));
         init();
 
 
     }
-
 
 
     private void init() {
@@ -79,8 +82,8 @@ public class MainActivity extends FragmentActivity {
             tab.setCustomView(view);
         }
 
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

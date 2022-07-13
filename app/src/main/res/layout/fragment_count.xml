@@ -4,11 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
     <com.amap.api.maps.MapView
         android:id="@+id/mv_count"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         />
+    <com.loopeer.cardstack.CardStackView
+        android:id="@+id/cv_stack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@color/color_1"
+            android:text="Pre"
+            android:onClick="onPreClick1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:onClick="onNextClick1"/>
+    </LinearLayout>
+
 
 </LinearLayout>

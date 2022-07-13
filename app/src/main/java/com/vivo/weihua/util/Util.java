@@ -1,16 +1,16 @@
 package com.vivo.weihua.util;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Environment;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
-import com.amap.api.location.CoordinateConverter;
-import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
-import com.vivo.weihua.WeiApplication;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -62,19 +62,11 @@ public class Util {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(second * 1000);//转换为毫秒
         Date date = calendar.getTime();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         String dateString = format.format(date);
         return dateString;
     }
 
-    public static boolean crateFiles() {
-        File folder = new File(Environment.getExternalStorageDirectory() + "TimeMap");
-        boolean success = true;
-        if (!folder.exists()) {
-            success = folder.mkdir();
-        }
-        return success;
-    }
 
     /**
      * 根据用户的起点和终点经纬度计算两点间距离，此距离为相对较短的距离，单位米。
@@ -155,6 +147,19 @@ public class Util {
                 );
             }
             cursor.close();
+        }
+    }
+
+
+    public static void setWindowStatusBarColor(Activity activity, int color) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = activity.getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(color);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

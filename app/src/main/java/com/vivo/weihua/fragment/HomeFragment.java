@@ -1,6 +1,7 @@
-package com.vivo.weihua.ui;
+package com.vivo.weihua.fragment;
 
-import android.Manifest;
+import static android.content.Context.JOB_SCHEDULER_SERVICE;
+
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,8 +42,12 @@ import com.vivo.weihua.bean.CountBean;
 import com.vivo.weihua.bean.LocationBean;
 import com.vivo.weihua.db.AutoServer;
 import com.vivo.weihua.db.LocationDbManager;
+import com.vivo.weihua.ui.AddActivity;
 import com.vivo.weihua.util.Constant;
+import com.vivo.weihua.util.LocalDataPool;
 import com.vivo.weihua.util.Util;
+
+import org.feezu.liuli.timeselector.TimeSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +60,7 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import static android.content.Context.JOB_SCHEDULER_SERVICE;
-
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     public static final String TAG = HomeFragment.class.getSimpleName();
     //AI记录每天
     RecyclerView recyclerView;
@@ -64,6 +68,8 @@ public class HomeFragment extends Fragment {
     Context mContext;
     List<CountBean> mCountBeanList;
     JobScheduler jobScheduler;
+    ImageView calendarItem;
+    ImageView addItem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,9 +87,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.home_recycler);
+        calendarItem = view.findViewById(R.id.calendar_item);
+        addItem = view.findViewById(R.id.add_item);
+        calendarItem.setOnClickListener(this);
+        addItem.setOnClickListener(this);
 
         queryAndUpdateAdapter();
-
         LocationManager lm = (LocationManager) WeiApplication.getContext().getSystemService(mContext.LOCATION_SERVICE);
         boolean ok = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (ok) {//开了定位服务
@@ -156,10 +165,7 @@ public class HomeFragment extends Fragment {
                         recyclerView.setLayoutManager(manager);
                         recyclerView.setAdapter(adapter);
                         recyclerView.getItemAnimator().setChangeDuration(0);
-                        recyclerView.getItemAnimator().setAddDuration(0L);
-                        recyclerView.getItemAnimator().setChangeDuration(0);
                         recyclerView.getItemAnimator().setMoveDuration(0);
-                        recyclerView.getItemAnimator().setRemoveDuration(0);
                         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
                     }
@@ -173,21 +179,8 @@ public class HomeFragment extends Fragment {
      * 初始化权限和获取地址信息
      */
     private void initPermissionAddress() {
-        String permissions[] = {
-                Manifest.permission.INTERNET,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED
-
-        };
         ArrayList<String> toApplyList = new ArrayList<String>();
-        for (String perm : permissions) {
+        for (String perm : LocalDataPool.getPermissions()) {
             if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(mContext, perm)) {
                 toApplyList.add(perm);
                 //进入到这里代表没有权限.
@@ -287,5 +280,29 @@ public class HomeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         jobScheduler.cancelAll();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.calendar_item:
+                TimeSelector timeSelector = new TimeSelector(mContext, new TimeSelector.ResultHandler() {
+                    @Override
+                    public void handle(String time) {
+                        Toast.makeText(mContext, time, Toast.LENGTH_LONG).show();
+                    }
+                }, "2021-03-15 00:00", Util.getCurrentData() + " 00:00");
+                timeSelector.setMode(TimeSelector.MODE.YMDHM);//显示 年月日时分（默认）；
+                timeSelector.setMode(TimeSelector.MODE.YMD);//只显示 年月日
+                timeSelector.show();
+                break;
+            case R.id.add_item:
+                Intent intent = new Intent();
+                intent.setClass(mContext, AddActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+
     }
 }

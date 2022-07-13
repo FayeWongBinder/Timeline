@@ -14,15 +14,34 @@
  <com.amap.api.maps.MapView
      android:id="@+id/item_map"
      android:layout_width="match_parent"
-     android:layout_height="200dp"
+     android:layout_height="160dp"
      />
 <TextView
     android:id="@+id/tv_day"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="16sp"
-    android:layout_margin="6dp"
+    android:textSize="36sp"
+    android:textColor="#41434F"
+    android:textStyle="bold"
+    android:text="18"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
     />
+
+ <TextView
+     android:id="@+id/tv_month"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_alignBaseline="@id/tv_day"
+     android:layout_marginStart="6dp"
+     android:layout_marginLeft="6dp"
+     android:layout_marginEnd="6dp"
+     android:layout_marginBottom="6dp"
+     android:layout_toRightOf="@id/tv_day"
+     android:text="03月"
+     android:textColor="#40424F"
+     android:textStyle="bold"
+     android:textSize="16sp" />
  <androidx.recyclerview.widget.RecyclerView
      android:layout_below="@id/item_map"
      android:id="@+id/rv_address"

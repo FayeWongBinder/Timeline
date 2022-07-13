@@ -8,10 +8,10 @@ public class Constant {
     /**
      * 腾讯bugle
      */
-    public static final String CRASH_ID = "26448e5fed";
+    public static final String STYLE_ID_TWO = "2a3ee74472005f75ddb15a7afef8f2d2";
     /**
      * 服务轮询时间
      */
-    public static final int LATENCY_TIME=60000;
+    public static final int LATENCY_TIME = 60000;
 
 }

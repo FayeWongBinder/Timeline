@@ -59,7 +59,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 .setStyleId(Constant.STYLE_ID));
 
         CountBean countBean = mData.get(position);
-        holder.tvDay.setText(countBean.getDay());
+        String day = countBean.getDay();
+        holder.tvDay.setText(day.substring(day.length() - 2));
         LatLng latLng = new LatLng(countBean.getLocationList().get(0).getLatitude(), countBean.getLocationList().get(0).getLongitude());
         Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(countBean.getLocationList().get(0).getAddress()));
 

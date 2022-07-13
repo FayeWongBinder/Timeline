@@ -1,15 +1,11 @@
 package com.vivo.weihua.fragment;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,12 +17,16 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.MarkerOptions;
+import com.loopeer.cardstack.CardStackView;
 import com.vivo.weihua.R;
+import com.vivo.weihua.adapter.TestStackAdapter;
 import com.vivo.weihua.bean.LocationBean;
 import com.vivo.weihua.db.LocationDbManager;
 import com.vivo.weihua.util.Constant;
+import com.vivo.weihua.util.LocalDataPool;
+import com.vivo.weihua.util.Util;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -36,23 +36,23 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class CountFragment extends Fragment {
+public class CountFragment extends Fragment implements CardStackView.ItemExpendListener {
     private static final String TAG = CountFragment.class.getSimpleName();
-
     MapView mMapView;
     AMap aMap;
-
-    public static void setWindowStatusBarColor(Activity activity) {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = activity.getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(Color.parseColor("#2a2a2a"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    public static String[] TEST_DATAS = new String[]{
+            "2022-3-7",
+            "2022-3-8",
+            "2022-3-9",
+            "2022-3-10",
+            "2022-3-11",
+            "2022-3-12",
+            "2022-3-13",
+            "2022-3-14",
+    };
+    CardStackView mStackView;
+    TestStackAdapter mTestStackAdapter;
+    private LinearLayout mActionButtonContainer;
 
     @Nullable
     @Override
@@ -60,9 +60,16 @@ public class CountFragment extends Fragment {
 //        setWindowStatusBarColor(getActivity());
         View view = inflater.inflate(R.layout.fragment_count, container, false);
 
+        mStackView = view.findViewById(R.id.cv_stack);
+        mTestStackAdapter = new TestStackAdapter(getActivity());
+        mStackView.setAdapter(mTestStackAdapter);
+//        mTestStackAdapter.updateData(Arrays.asList(TEST_DATAS));
+        mStackView.setItemExpendListener(this);
+        mActionButtonContainer = view.findViewById(R.id.button_container);
+
+
         mMapView = view.findViewById(R.id.mv_count);
         mMapView.onCreate(savedInstanceState);
-
         aMap = mMapView.getMap();
         aMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是 否显示
         aMap.getUiSettings().setLogoBottomMargin(-70);
@@ -70,21 +77,7 @@ public class CountFragment extends Fragment {
 
         aMap.setCustomMapStyle(new com.amap.api.maps.model.CustomMapStyleOptions()
                 .setEnable(true)
-                .setStyleId(Constant.STYLE_ID));
-
-//        aMap.setCustomMapStyle(
-//                new com.amap.api.maps.model.CustomMapStyleOptions()
-//                        .setEnable(true)
-//                        .setStyleDataPath("/mnt/sdcard/amap/style.data")
-//                        .setStyleExtraPath("/mnt/sdcard/amap/style_extra.data")
-//                        .setStyleTexturePath("/mnt/sdcard/amap/textures.zip")
-//        );
-//        File file=new File("/mnt/sdcard/amap/style.data");
-//            boolean isFile=file.isFile();
-//
-//        File pic=new File("/mnt/sdcard/DCIM");
-//        boolean isFiles=pic.exists();
-//        Log.e(TAG,"------"+isFile+"-----"+isFiles);
+                .setStyleId(Constant.STYLE_ID_TWO));
         Observable.create(new ObservableOnSubscribe<List<LocationBean>>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<List<LocationBean>> emitter) throws Throwable {
@@ -100,6 +93,14 @@ public class CountFragment extends Fragment {
                         if (locationList.isEmpty()) {
                             return;
                         }
+                        List<String> dataList = new ArrayList<>();
+                        for (int i = 0; i < locationList.size(); i++) {
+                            dataList.add(locationList.get(i).getDay());
+                        }
+//                        mTestStackAdapter = new TestStackAdapter(getActivity(),locationList);
+//                        mStackView.setAdapter(mTestStackAdapter);
+//                        mTestStackAdapter.updateData(dataList);
+
                         LatLngBounds.Builder builder = new LatLngBounds.Builder();
                         LatLngBounds bounds = null;
                         for (int i = 0; i < locationList.size(); i++) {
@@ -112,5 +113,25 @@ public class CountFragment extends Fragment {
                     }
                 });
         return view;
+    }
+
+
+    @Override
+    public void onItemExpend(boolean expend) {
+        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
+        int a = mStackView.getSelectPosition() % 10;
+        Log.e(TAG, "------" + a);
+        if (a >= 0 && a <= 10) {
+            Util.setWindowStatusBarColor(getActivity(), LocalDataPool.COLOR_DATA[a]);
+        }
+
+    }
+
+    public void onPreClick1(View view) {
+        mStackView.pre();
+    }
+
+    public void onNextClick1(View view) {
+        mStackView.next();
     }
 }

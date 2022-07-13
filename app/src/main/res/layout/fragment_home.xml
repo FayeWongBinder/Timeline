@@ -3,49 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.appbar.AppBarLayout
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_height="54dp"
+        app:layout_scrollFlags="scroll|enterAlways"
+        >
+
+        <ImageView
+            android:id="@+id/add_item"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            android:gravity="center_vertical"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已经记录128天"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="200dp"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/add_icon"
-                />
-        </LinearLayout>
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="54dp"
-           >
-           <ImageView
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:src="@mipmap/add_mini_icon"
-               android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/add_icon_head"
                />
-           <ImageView
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginRight="54dp"
-               android:src="@mipmap/search_home_icon"
-               />
+
+        <ImageView
+            android:id="@+id/calendar_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/add_item"
+            android:src="@mipmap/calendar_icon" />
        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
